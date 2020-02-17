@@ -7,7 +7,7 @@ int16_t valor;
 
 void main(void) {
 	//TRISA =TRISA |(1<<0)
-		
+		float valor_f;
 		TRISA 	|=1<<0;		//ra0 como entrada
 		ANSEL 	|=1<<0;		//RA0 como entrada analogica			
 		//ADCON= ADDS=FOSC/8, CHS=AN0,	GO=0,ADON1
@@ -23,8 +23,13 @@ void main(void) {
 		ADCON0 |= (1<<1);	//seta o go/done (inicia conversão)
 		while(ADCON0 & (1<<1))
 		valor= (ADRESH<<8) + ADRESL;
-		
-	
+		valor=valor*5;
+		if(valor>2000){
+			PORTD|=(1<<0); 	//seta RD0
+		}else{
+			PORTD &= ~(1<<0); //reseta RD0
+		}
+		__delay_us(5);//delay entre conversao
 	
 	}
 }

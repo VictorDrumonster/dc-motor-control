@@ -16,6 +16,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ADRESH `Vuc ~T0 @X0 0 e@30 ]
 "2968
 [v _ADRESL `Vuc ~T0 @X0 0 e@158 ]
+"350
+[v _PORTD `Vuc ~T0 @X0 0 e@8 ]
+[v F1637 `(v ~T0 @X0 1 tf1`ul ]
+"153 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic.h
+[v __delay `JF1637 ~T0 @X0 0 e ]
+[p i __delay ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -1538,6 +1544,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 8: void main(void) {
 [e :U _main ]
 [f ]
+"10
+[v _valor_f `f ~T0 @X0 1 a ]
+[; ;main.c: 10: float valor_f;
 [; ;main.c: 11: TRISA |=1<<0;
 "11
 [e =| _TRISA -> << -> 1 `i -> 0 `i `uc ]
@@ -1580,14 +1589,40 @@ Version 3.2 HI-TECH Software Intermediate Code
 "24
 [e $ != & -> _ADCON0 `i << -> 1 `i -> 1 `i -> 0 `i 143  ]
 [e :U 144 ]
+[; ;main.c: 26: valor=valor*5;
+"26
+[e = _valor * _valor -> 5 `i ]
+[; ;main.c: 27: if(valor>2000){
+"27
+[e $ ! > _valor -> 2000 `i 145  ]
+{
+[; ;main.c: 28: PORTD|=(1<<0);
+"28
+[e =| _PORTD -> << -> 1 `i -> 0 `i `uc ]
 "29
+}
+[; ;main.c: 29: }else{
+[e $U 146  ]
+[e :U 145 ]
+{
+[; ;main.c: 30: PORTD &= ~(1<<0);
+"30
+[e =& _PORTD -> ~ << -> 1 `i -> 0 `i `uc ]
+"31
+}
+[e :U 146 ]
+[; ;main.c: 31: }
+[; ;main.c: 32: _delay((unsigned long)((5)*(4000000/4000000.0)));
+"32
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+"34
 }
 [e :U 139 ]
 "22
 [e $U 140  ]
 [e :U 141 ]
-[; ;main.c: 29: }
-[; ;main.c: 30: }
-"30
+[; ;main.c: 34: }
+[; ;main.c: 35: }
+"35
 [e :UE 138 ]
 }
